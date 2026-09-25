@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ポテから大抽選会</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header>
+      <p class="eyebrow">SYSTEM DEPT. FESTIVAL 2026</p>
+      <h1>ポテから<span>大抽選会</span></h1>
+      <button id="adminButton" class="admin-button" aria-label="管理画面を開く">⚙ 管理</button>
+    </header>
+
+    <section id="standby" class="screen active" aria-live="polite">
+      <p class="lead">結果が出たら、スタッフに画面を見せてね！</p>
+      <div id="stockBoard" class="stock-board"></div>
+      <div class="machine-wrap" aria-hidden="true">
+        <div class="rays"></div>
+        <div id="machine" class="machine">
+          <div class="machine-top"><span class="ball b1"></span><span class="ball b2"></span><span class="ball b3"></span></div>
+          <div class="machine-body"><div class="wheel">★</div></div>
+          <div class="handle"></div>
+        </div>
+      </div>
+      <button id="startButton" class="start-button">くじスタート <span>▶</span></button>
+      <p class="hint">ボタンを押して、今日の運試し！</p>
+    </section>
+
+    <section id="drawing" class="screen" aria-live="assertive">
+      <p class="drawing-title">抽選中…</p>
+      <div class="roulette"><span>🎉</span></div>
+      <p>運命の玉がまわっています</p>
+    </section>
+
+    <section id="result" class="screen" aria-live="assertive">
+      <div id="confetti" class="confetti" aria-hidden="true"></div>
+      <p id="resultLabel" class="result-label">おめでとう！</p>
+      <div id="resultPrize" class="result-prize">A賞</div>
+      <p id="resultName" class="result-name"></p>
+      <p class="staff-message">この画面をスタッフに見せてください</p>
+      <button id="returnButton" class="return-button">次の人へ</button>
+    </section>
+
+    <section id="admin" class="screen admin-screen">
+      <div class="admin-card">
+        <div class="admin-head"><h2>管理画面</h2><button id="closeAdmin" class="close-button">×</button></div>
+        <p class="admin-note">設定はこのPC内に保存されます。</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>賞</th><th>表示名</th><th>初期在庫</th><th>確率 (重み)</th><th>残数</th><th>当選数</th></tr></thead>
+          <tbody id="settingsRows"></tbody>
+        </table></div>
+        <div class="admin-actions">
+          <button id="saveSettings" class="save-button">設定を保存</button>
+          <button id="resetDay" class="reset-button">2日目用にリセット</button>
+        </div>
+        <p id="adminStatus" class="admin-status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+  <div id="confirmDialog" class="dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="dialogTitle" hidden>
+    <div class="dialog"><h2 id="dialogTitle">本当にリセットしますか？</h2><p>残数と当選数が、現在の初期在庫に戻ります。この操作は取り消せません。</p><div><button id="cancelReset" class="return-button">キャンセル</button><button id="confirmReset" class="reset-button">リセットする</button></div></div>
+  </div>
+  <div id="passcodeDialog" class="dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="passcodeTitle" hidden>
+    <div class="dialog passcode-dialog">
+      <h2 id="passcodeTitle">管理者確認</h2>
+      <p>4桁のパスコードを入力してください。</p>
+      <input id="passcodeInput" class="passcode-input" type="password" inputmode="numeric" autocomplete="off" maxlength="4" pattern="[0-9]{4}" aria-label="4桁のパスコード">
+      <p id="passcodeError" class="passcode-error" aria-live="polite"></p>
+      <div class="dialog-actions passcode-actions"><button id="cancelPasscode" class="return-button">キャンセル</button><button id="submitPasscode" class="save-button">管理画面へ</button></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
